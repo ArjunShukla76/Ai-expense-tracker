@@ -18,7 +18,7 @@ module.exports = async function handler(req, res) {
   try {
     const url =
       "https://generativelanguage.googleapis.com/v1beta/models/" +
-      process.env.GEMINI_MODEL + ":generateContent";
+      "gemini-3.8-flash" + ":generateContent";
 
     const response = await fetch(url, {
       method: "POST",
@@ -30,6 +30,10 @@ module.exports = async function handler(req, res) {
     });
 
     const data = await response.json();
+    console.log("Key set:", !!process.env.GEMINI_API_KEY);
+    console.log("Gemini status:", response.status);
+    console.log("Gemini reply:", JSON.stringify(data).slice(0, 600));
+
     const text =
       (data.candidates &&
         data.candidates[0] &&
@@ -37,13 +41,13 @@ module.exports = async function handler(req, res) {
         data.candidates[0].content.parts &&
         data.candidates[0].content.parts[0].text) || "";
 
-    // Only accept an answer from our allowed list. Anything else becomes "Other".
     const match = CATEGORIES.find(function (c) {
       return text.toLowerCase().includes(c.toLowerCase());
     });
 
     return res.status(200).json({ category: match || "Other" });
   } catch (err) {
+    console.error("Function error:", String(err));
     return res.status(200).json({ category: "Other" });
   }
 };
