@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Expense Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>AI Expense Tracker</h1>
+    <p class="subtitle">Type what you spent. It auto-categorizes using keyword rules, with AI as a fallback.</p>
+
+    <section class="card">
+      <label for="note">What did you spend on?</label>
+      <input type="text" id="note" placeholder="e.g. Swiggy dinner, Uber to campus">
+
+      <label for="amount">Amount (₹)</label>
+      <input type="number" id="amount" placeholder="450">
+
+      <button id="add">Add expense</button>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="card">
+      <h2>Spending by category</h2>
+      <div class="chart-box"><canvas id="chart"></canvas></div>
+      <p id="total" class="total"></p>
+    </section>
+
+    <section class="card">
+      <h2>Expenses</h2>
+      <ul id="list"></ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
